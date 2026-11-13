@@ -1,0 +1,143 @@
+/* Monospace */
+
+.k-tiptap-editor-container {
+    container-name: editor;
+    container-type: inline-size;
+}
+
+.tiptap {
+    margin-inline: auto;
+    max-width: 80ch;
+
+    @container (width > 80ch) {
+        --margin: calc((100% - 80ch) * 0.3);
+
+        margin-block: clamp(0rem, var(--margin), 5rem);
+    }
+}
+
+.tiptap .k-tiptag {
+    max-width: 80ch !important;
+}
+
+.tiptap :where(h1, h2, h3, h4, h5, h6, p, ol, ul, .k-tiptap-pill) {
+    font-size: 1em;
+    line-height: 1.75;
+    font-family: 'SF Mono', monospace;
+
+    .k-tiptap-pill,
+    .k-tiptap-tag {
+        line-height: 1.5;
+    }
+
+    .k-tiptap-tag {
+        font-size: inital;
+        font-family: var(--font-sans);
+    }
+}
+
+.tiptap :where(.k-tiptag-item, .k-tiptap-card) {
+    font-family: var(--font-sans);
+}
+
+.tiptap :where(h1, h2, h3, h4, h5, h6) {
+    font-weight: bold !important;
+    font-size: 1em !important;
+}
+
+.tiptap :where(h1, h2, h3, h4, h5, h6)::before {
+    font-weight: normal;
+}
+
+.tiptap h1 {
+    text-indent: -2ch;
+
+    &::before {
+        content: '# ';
+    }
+}
+
+.tiptap h2 {
+    text-indent: -3ch;
+
+    &::before {
+        content: '## ';
+    }
+}
+
+.tiptap h3 {
+    text-indent: -4ch;
+
+    &::before {
+        content: '### ';
+    }
+}
+
+.tiptap h4 {
+    text-indent: -5ch;
+
+    &::before {
+        content: '#### ';
+    }
+}
+
+.tiptap h5 {
+    text-indent: -6ch;
+
+    &::before {
+        content: '##### ';
+    }
+}
+
+.tiptap h6 {
+    text-indent: -7ch;
+
+    &::before {
+        content: '###### ';
+    }
+}
+
+.tiptap :is(h1, h2, h3, h4, h5, h6) {
+    @container (width < 92ch) {
+        text-indent: 0;
+    }
+}
+
+.tiptap ul {
+    padding-left: 2ch;
+    list-style: none;
+
+    li {
+        position: relative;
+
+        &::before {
+            position: absolute;
+            left: -2ch;
+            content: '- ';
+        }
+    }
+}
+
+.tiptap ol {
+    --offset: 3ch;
+
+    padding-left: var(--offset);
+    list-style: none;
+    counter: list;
+    counter-reset: list;
+
+    &:has(:nth-child(10)) {
+        --offset: 4ch;
+    }
+
+    li {
+        position: relative;
+        counter-increment: list;
+
+        &::before {
+            position: absolute;
+            left: calc(-1 * var(--offset));
+            content: counter(list) '. ';
+        }
+    }
+}
